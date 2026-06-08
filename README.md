@@ -67,8 +67,7 @@ builder.AddNpgsqlDbContext<ApplicationDbContext>("migrator-db");
 
 WebApplication app = builder.Build();
 
-app.MapDevelopmentMigrationEndpoints<ApplicationDbContext>(
-    async (db, ct) => await db.Database.MigrateAsync(ct));
+app.MapDevelopmentMigrationEndpoints<ApplicationDbContext>();
 
 app.Run();
 ```

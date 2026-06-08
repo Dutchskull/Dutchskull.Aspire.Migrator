@@ -10,6 +10,14 @@ namespace Dutchskull.Aspire.Migrator;
 public static class MigrationEndpointExtensions
 {
     public static IEndpointRouteBuilder MapDevelopmentMigrationEndpoints<TContext>(
+        this IEndpointRouteBuilder endpoints)
+        where TContext : DbContext
+    {
+        return endpoints
+            .MapDevelopmentMigrationEndpoints<TContext>(async (db, ct) => await db.Database.MigrateAsync(ct));
+    }
+    
+    public static IEndpointRouteBuilder MapDevelopmentMigrationEndpoints<TContext>(
         this IEndpointRouteBuilder endpoints,
         Func<TContext, CancellationToken, Task> migrateAsync)
         where TContext : DbContext
