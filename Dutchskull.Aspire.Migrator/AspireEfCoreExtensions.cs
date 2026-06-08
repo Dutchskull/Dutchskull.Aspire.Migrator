@@ -5,11 +5,19 @@ namespace Dutchskull.Aspire.Migrator;
 
 public static class AspireEfCoreExtensions
 {
-    public static IResourceBuilder<ProjectResource> WithEfMaintenanceCommands(
-        this IResourceBuilder<ProjectResource> builder)
+    public static IResourceBuilder<ProjectResource> WithEfMigrationCommands(
+        this IResourceBuilder<ProjectResource> builder,
+        bool? autoMigrateOnStart = null,
+        bool? autoSeedOnStart = null)
     {
+        if (autoMigrateOnStart.HasValue)
+            builder.WithEnvironment("EF_MIGRATE_ON_START", autoMigrateOnStart.Value.ToString());
+
+        if (autoSeedOnStart.HasValue)
+            builder.WithEnvironment("EF_SEED_ON_START", autoSeedOnStart.Value.ToString());
+
         builder.WithHttpCommand(
-            "/api/maintenance/migrate",
+            "/api/migration/migrate",
             "EF Migrate",
             commandOptions: new HttpCommandOptions
             {
@@ -21,7 +29,7 @@ public static class AspireEfCoreExtensions
             });
 
         builder.WithHttpCommand(
-            "/api/maintenance/drop",
+            "/api/migration/drop",
             "EF Drop/Reset",
             commandOptions: new HttpCommandOptions
             {
@@ -34,7 +42,7 @@ public static class AspireEfCoreExtensions
             });
 
         builder.WithHttpCommand(
-            "/api/maintenance/seed",
+            "/api/migration/seed",
             "EF Seed",
             commandOptions: new HttpCommandOptions
             {

@@ -7,11 +7,13 @@ IResourceBuilder<PostgresDatabaseResource> db = builder
     .AddPostgres("postgres")
     .AddDatabase("migrator-db");
 
-builder.AddProject<Dutchskull_Aspire_Migrator_Api>("api")
-    .WithReference(db);
-
-builder.AddProject<Dutchskull_Aspire_Migrator_DatabaseMigrator>("migrator")
+IResourceBuilder<ProjectResource> migrator = builder.AddProject<Dutchskull_Aspire_Migrator_DatabaseMigrator>("migrator")
     .WithReference(db)
-    .WithEfMaintenanceCommands();
+    .WaitFor(db)
+    .WithEfMigrationCommands(true, true);
+
+builder.AddProject<Dutchskull_Aspire_Migrator_Api>("api")
+    .WaitFor(migrator)
+    .WithReference(db);
 
 builder.Build().Run();

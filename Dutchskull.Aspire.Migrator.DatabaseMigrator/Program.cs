@@ -16,7 +16,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.MapDevelopmentMaintenanceEndpoints<ApplicationDbContext>(async (db, ct) => await db.Database.MigrateAsync(ct));
+app.MapDevelopmentMigrationEndpoints<ApplicationDbContext>(async (db, ct) => await db.Database.MigrateAsync(ct));
 
 app.UseHttpsRedirection();
 
