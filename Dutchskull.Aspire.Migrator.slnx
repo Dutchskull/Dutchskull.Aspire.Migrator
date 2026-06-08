@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Dutchskull.Aspire.Migrator.Api/Dutchskull.Aspire.Migrator.Api.csproj" />
+  <Project Path="Dutchskull.Aspire.Migrator.Apphost\Dutchskull.Aspire.Migrator.Apphost.csproj" />
+  <Project Path="Dutchskull.Aspire.Migrator.DatabaseMigrator/Dutchskull.Aspire.Migrator.DatabaseMigrator.csproj" />
+  <Project Path="Dutchskull.Aspire.Migrator/Dutchskull.Aspire.Migrator.csproj" />
+</Solution>

@@ -1,0 +1,21 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.4.2">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <UserSecretsId>53608932-ed9a-474c-95f8-02e46b68f8d2</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="13.4.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Dutchskull.Aspire.Migrator.Api\Dutchskull.Aspire.Migrator.Api.csproj" />
+      <ProjectReference Include="..\Dutchskull.Aspire.Migrator.DatabaseMigrator\Dutchskull.Aspire.Migrator.DatabaseMigrator.csproj" />
+      <ProjectReference Include="..\Dutchskull.Aspire.Migrator\Dutchskull.Aspire.Migrator.csproj" IsAspireProjectResource="false" />
+    </ItemGroup>
+
+</Project>
