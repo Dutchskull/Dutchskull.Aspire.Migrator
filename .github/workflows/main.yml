@@ -1,0 +1,47 @@
+name: Publish NuGet Package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    env:
+      DOTNET_INSTALL_DIR: "./.dotnet"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET SDKs
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+            10.0.x
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v2.0.1
+        with:
+          versionSpec: "6.0.x"
+
+      - name: Determine version
+        uses: gittools/actions/gitversion/execute@v2.0.1
+
+      - name: Restore dependencies
+        run: dotnet restore Dutchskull.Aspire.Migrator/Dutchskull.Aspire.Migrator.csproj.csproj
+
+      - name: Build
+        run: dotnet build Dutchskull.Aspire.Migrator/Dutchskull.Aspire.Migrator.csproj.csproj --configuration Release --no-restore
+
+      - name: Pack
+        run: dotnet pack Dutchskull.Aspire.Migrator/Dutchskull.Aspire.Migrator.csproj.csproj --configuration Release --no-restore --output ./nupkg /p:Version=${{ env.semVer }}
+
+      - name: Publish to NuGet
+        run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}

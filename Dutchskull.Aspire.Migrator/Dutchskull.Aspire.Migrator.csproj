@@ -4,7 +4,29 @@
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        
+        <PackageId>Dutchskull.Aspire.Migrator</PackageId>
+        <Version>0.0.1</Version>
+        <Authors>Dutchskull</Authors>
+        <Description>A description of your package.</Description>
+        <PackageTags>aspire git example</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/Dutchskull/Dutchskull.Aspire.Migrator</RepositoryUrl>
+        <ProjectUrl>https://github.com/Dutchskull/Dutchskull.Aspire.Migrator</ProjectUrl>
+
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+
+        <PackageReadmeFile>docs\README.md</PackageReadmeFile>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="../README.md">
+            <Pack>true</Pack>
+            <PackagePath>docs/</PackagePath>
+            <Link>docs/README.md</Link>
+        </None>
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Aspire.Hosting" Version="13.4.2" />
