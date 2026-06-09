@@ -33,13 +33,13 @@ jobs:
         uses: gittools/actions/gitversion/execute@v2.0.1
 
       - name: Restore dependencies
-        run: dotnet restore Dutchskull.Aspire.Migrator/Dutchskull.Aspire.Migrator.csproj.csproj
+        run: dotnet restore Dutchskull.Aspire.Migrator/Dutchskull.Aspire.Migrator.csproj
 
       - name: Build
-        run: dotnet build Dutchskull.Aspire.Migrator/Dutchskull.Aspire.Migrator.csproj.csproj --configuration Release --no-restore
+        run: dotnet build Dutchskull.Aspire.Migrator/Dutchskull.Aspire.Migrator.csproj --configuration Release --no-restore
 
       - name: Pack
-        run: dotnet pack Dutchskull.Aspire.Migrator/Dutchskull.Aspire.Migrator.csproj.csproj --configuration Release --no-restore --output ./nupkg /p:Version=${{ env.semVer }}
+        run: dotnet pack Dutchskull.Aspire.Migrator/Dutchskull.Aspire.Migrator.csproj --configuration Release --no-restore --output ./nupkg /p:Version=${{ env.semVer }}
 
       - name: Publish to NuGet
         run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
